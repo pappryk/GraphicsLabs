@@ -1,7 +1,3 @@
-// Calosc mozna dowolnie edytowac wedle uznania. 
-#define WIDTH  2
-#define HEIGHT 62
-
 #include <iostream>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
