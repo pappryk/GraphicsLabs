@@ -2,6 +2,8 @@
 #include <vector>
 #include <fstream>
 #include "vecmat.h"
+#include <iostream>
+#include <sstream>
 
 struct Point {
  float x, y, z;
@@ -121,10 +123,12 @@ void GUIMyFrame1::Repaint()
     translation.data[0][0] = 1;
     translation.data[1][1] = 1;
     translation.data[2][2] = 1;
-    translation.data[0][3] = WxSB_TranslationX->GetValue() / w;
-    translation.data[1][3] = WxSB_TranslationY->GetValue() / h;
-    translation.data[2][3] = WxSB_TranslationZ->GetValue() / 2;
-
+    translation.data[0][3] = 4.0 * (WxSB_TranslationX->GetValue() - 99) / WxSB_TranslationX->GetMax();
+    translation.data[1][3] = 4.0 * (WxSB_TranslationY->GetValue() - 99) / WxSB_TranslationY->GetMax();
+    translation.data[2][3] = 4.0 * (WxSB_TranslationZ->GetValue() - 99) / WxSB_TranslationZ->GetMax() ;
+    //translation.data[0][3] = 0;
+    //translation.data[1][3] = 0;
+    //translation.data[2][3] = 0;
 
     rotateX.data[0][0] = 1;
     rotateX.data[1][1] = cos(1.0 * WxSB_RotateX->GetValue() / WxSB_RotateX->GetMax() * 2 * M_PI);
@@ -146,21 +150,20 @@ void GUIMyFrame1::Repaint()
     rotateZ.data[1][1] = cos(1.0 * WxSB_RotateZ->GetValue() / WxSB_RotateZ->GetMax() * 2 * M_PI); 
 
 
-    scale.data[0][0] = WxSB_ScaleX->GetValue() / WxSB_ScaleX->GetMax() / 2;
-    scale.data[1][1] = WxSB_ScaleY->GetValue() / WxSB_ScaleY->GetMax() / 2; 
-    scale.data[2][2] = WxSB_ScaleZ->GetValue() / WxSB_ScaleZ->GetMax() / 2;
-    scale.data[0][0] = 1;
-    scale.data[1][1] = 1;
-    scale.data[2][2] = 1;
+    scale.data[0][0] = 2.0 * WxSB_ScaleX->GetValue() / WxSB_ScaleX->GetMax();
+    scale.data[1][1] = 2.0 * WxSB_ScaleY->GetValue() / WxSB_ScaleY->GetMax(); 
+    scale.data[2][2] = 2.0 * WxSB_ScaleZ->GetValue() / WxSB_ScaleZ->GetMax();
+    //scale.data[0][0] = 1;
+    //scale.data[1][1] = 1;
+    //scale.data[2][2] = 1;
     
     
-
-
+    transform = transform * translation;
+    transform = transform * scale;        
     transform = transform * rotateX;
     transform = transform * rotateY;
     transform = transform * rotateZ;
-    transform = transform * scale;
-    //transform = transform * translation;
+    
     
 
     for (i = 0; i < data.size(); i++)
