@@ -123,12 +123,9 @@ void GUIMyFrame1::Repaint()
     translation.data[0][0] = 1;
     translation.data[1][1] = 1;
     translation.data[2][2] = 1;
-    translation.data[0][3] = 4.0 * (WxSB_TranslationX->GetValue() - 99) / WxSB_TranslationX->GetMax();
-    translation.data[1][3] = 4.0 * (WxSB_TranslationY->GetValue() - 99) / WxSB_TranslationY->GetMax();
-    translation.data[2][3] = 4.0 * (WxSB_TranslationZ->GetValue() - 99) / WxSB_TranslationZ->GetMax() ;
-    //translation.data[0][3] = 0;
-    //translation.data[1][3] = 0;
-    //translation.data[2][3] = 0;
+    translation.data[0][3] = 4.0 * (WxSB_TranslationX->GetValue() - 100) / WxSB_TranslationX->GetMax();
+    translation.data[1][3] = 4.0 * (WxSB_TranslationY->GetValue() - 100) / WxSB_TranslationY->GetMax();
+    translation.data[2][3] = 4.0 * (WxSB_TranslationZ->GetValue() - 100) / WxSB_TranslationZ->GetMax() ;
 
     rotateX.data[0][0] = 1;
     rotateX.data[1][1] = cos(1.0 * WxSB_RotateX->GetValue() / WxSB_RotateX->GetMax() * 2 * M_PI);
@@ -153,16 +150,13 @@ void GUIMyFrame1::Repaint()
     scale.data[0][0] = 2.0 * WxSB_ScaleX->GetValue() / WxSB_ScaleX->GetMax();
     scale.data[1][1] = 2.0 * WxSB_ScaleY->GetValue() / WxSB_ScaleY->GetMax(); 
     scale.data[2][2] = 2.0 * WxSB_ScaleZ->GetValue() / WxSB_ScaleZ->GetMax();
-    //scale.data[0][0] = 1;
-    //scale.data[1][1] = 1;
-    //scale.data[2][2] = 1;
     
-    
-    transform = transform * translation;
-    transform = transform * scale;        
+    transform = transform * translation;    
     transform = transform * rotateX;
     transform = transform * rotateY;
-    transform = transform * rotateZ;
+    transform = transform * rotateZ;   
+    transform = transform * scale;
+
     
     
 
@@ -176,9 +170,9 @@ void GUIMyFrame1::Repaint()
         
 
         dc.SetPen(wxPen(wxColour(data[i].color.R, data[i].color.G, data[i].color.B)));      
-        dc.DrawLine(w/2 + scaleX*vector.GetX()/(1 + vector.GetZ()/d),
-                    h/2 + scaleY*vector.GetY()/(1 + vector.GetZ()/d),
-                    w/2 + scaleX*vectorStop.GetX()/(1 + vectorStop.GetZ()/d),
-                    h/2 + scaleY*vectorStop.GetY()/(1 + vectorStop.GetZ()/d));
+        dc.DrawLine(w/2 + scaleX*vector.GetX()/abs(1.0 + vector.GetZ()/d),
+                    h/2 + scaleY*vector.GetY()/abs(1.0 + vector.GetZ()/d),
+                    w/2 + scaleX*vectorStop.GetX()/abs(1.0 + vectorStop.GetZ()/d),
+                    h/2 + scaleY*vectorStop.GetY()/abs(1.0 + vectorStop.GetZ()/d));
     }
 }

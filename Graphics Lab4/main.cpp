@@ -1,4 +1,5 @@
 #include <wx/wx.h>
+#include <memory>
 #include "GUIMyFrame1.h"
 
 class MyApp : public wxApp {
@@ -12,7 +13,7 @@ public:
 
 IMPLEMENT_APP(MyApp);
 
-bool MyApp::OnInit()
+bool MyApp::OnInit() 
 {
  wxFrame *mainFrame = new GUIMyFrame1(NULL);
  mainFrame->Show(true);

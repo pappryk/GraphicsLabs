@@ -1,4 +1,9 @@
 #pragma once
-#include <iostream>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include "Functions.h"
+#include "Circle.h"
+#include "CircleRGB.h"
+#include "CircleHSV.h"
+#include "CircleHSL.h"
+#include "CircleCMY.h"
